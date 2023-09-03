@@ -90,6 +90,7 @@ App = {
         for (var i = 1; i <= taskCount; i++) {
             const task = await App.todoList.tasks(i)
             const taskId = task[0].toNumber()
+            console.log('task id: ', taskId)
             const taskContent = task[1]
             const taskCompleted = task[2]
 
@@ -114,6 +115,13 @@ App = {
         }
         
 
+    },
+
+    toggleCompleted : async (e)=>{
+        App.setLoading(true)
+        const taskId = e.target.name
+        await App.todoList.toggleCompleted(taskId)
+        window.location.reload()
     },
     setLoading: (boolean) => {
         App.loading = boolean
