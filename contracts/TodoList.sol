@@ -15,6 +15,12 @@ contract TodoList {
     // defines a 'table' of columns id and task
     mapping(uint => Task) public tasks;
     
+    // events can be triggered and emitted to subscribed users of the blockchain
+    event TaskCreated(
+        uint id,
+        string content,
+        bool completed
+    );
     // constructor code are ran on deployment of smart contract
     constructor() public {
         createTask("Finish todolist dapp.");
@@ -24,7 +30,7 @@ contract TodoList {
     function createTask(string memory _content) public {
         taskCount ++;
         tasks[taskCount] = Task(taskCount, _content, false);
+        emit TaskCreated(taskCount, _content, false);
     }
-
 
 }

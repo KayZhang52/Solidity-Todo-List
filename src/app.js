@@ -46,6 +46,7 @@ App = {
 
     loadAccount: async () => {
         App.account = web3.eth.accounts[0]
+        window.web3.eth.defaultAccount = web3.eth.accounts[0]
         console.log(App.account)
     },
 
@@ -74,7 +75,13 @@ App = {
         // Update loading state
         App.setLoading(false)
     },
-
+    createTask:async ()=>{
+        App.setLoading(true)
+        const content = $('#newTask').val()
+        // get the truffle api for interacting with smart contract
+        await App.todoList.createTask(content)
+        window.location.reload()
+    },
     renderTasks: async () => {
         //load number of tasks from the blockchain
         const taskCount = await App.todoList.taskCount()
